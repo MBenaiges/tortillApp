@@ -7,6 +7,14 @@ const indexRouter = require('./routes/index');
 
 const app = express();
 
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/tortillApp', {
+  keepAlive: true,
+  useNewUrlParser: true,
+  reconnectTries: Number.MAX_VALUE
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
