@@ -1,0 +1,9 @@
+<h1>Our Tortillas</h1>
+
+<ul>
+  {{#each tortillas}}
+  <li>
+    <a href="/tortillas/{{this.id}}/">{{this.name}}</a>
+  </li>
+  {{/each}}
+</ul>
