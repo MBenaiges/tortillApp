@@ -5,28 +5,26 @@ const router = express.Router();
 
 const User = require('../models/User');
 
+const { requireAnon, requireUser, requireFields } = require('../middlewares/auth.js');
+
 const saltRounds = 10;
 
-router.get('/signup', (req, res, next) => {
-  if (req.session.currentUser) {
-    res.redirect('/');
-    return;
-  }
-  res.render('auth/signup');
+router.get('/signup', requireAnon, (req, res, next) => {
+  const data = {
+    messages: req.flash('validation')
+  };
+  res.render('auth/signup', data);
 });
 
-router.post('/signup', async (req, res, next) => {
+router.post('/signup', requireAnon, requireFields, async (req, res, next) => {
   // Extraer body
   const { username, password } = req.body;
-  // Comprobar que username y password existen
-  if (!password || !username) {
-    res.redirect('/auth/signup');
-    return;
-  }
+
   // Comprobar que usuario no existe
   try {
     const result = await User.findOne({ username });
     if (result) {
+      req.flash('validation', 'This username is taken');
       res.redirect('/auth/signup');
       return;
     }
@@ -48,26 +46,13 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
-router.get('/login', (req, res, next) => {
-  if (req.session.currentUser) {
-    res.redirect('/');
-    return;
-  }
+router.get('/login', requireAnon, (req, res, next) => {
   res.render('auth/login');
 });
 
-router.post('/login', async (req, res, next) => {
-  if (req.session.currentUser) {
-    res.redirect('/');
-    return;
-  }
+router.post('/login', requireAnon, requireFields, async (req, res, next) => {
   // Extraer info del body
   const { username, password } = req.body;
-  // comprobar que hay usuario y password
-  if (!password || !username) {
-    res.redirect('/auth/login');
-    return;
-  }
   try {
     // comprobar que el usuario existe
     const user = await User.findOne({ username });
@@ -90,11 +75,7 @@ router.post('/login', async (req, res, next) => {
   }
 });
 
-router.post('/logout', async (req, res, next) => {
-  if (!req.session.currentUser) {
-    res.redirect('/');
-    return;
-  }
+router.post('/logout', requireUser, async (req, res, next) => {
   delete req.session.currentUser;
 
   res.redirect('/');

@@ -7,6 +7,7 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const flash = require('connect-flash');
 const app = express();
 
 const mongoose = require('mongoose');
@@ -22,6 +23,9 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000
   }
 }));
+
+app.use(flash());
+
 mongoose.connect('mongodb://localhost/tortillApp', {
   keepAlive: true,
   useNewUrlParser: true,
