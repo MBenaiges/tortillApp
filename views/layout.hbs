@@ -10,7 +10,7 @@
 <body>
   <nav>
     {{#if currentUser}}
-    <div>
+    <div class="menu-option">
       <p>{{currentUser.username}}</p>
       <form action="/auth/logout" method="POST">
         <button type="submit">Logout</button>

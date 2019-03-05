@@ -1,24 +1,23 @@
-<h1>Signup</h1>
+<div class="container">
+  <h1>Signup</h1>
 
-<form method="POST" action="/auth/signup">
+  <form method="POST" action="/auth/signup">
 
-  <div class="field">
-    <label>Username</label>
-    <input type="text" name="username" />
-  </div>
+    <div class="field">
+      <label>Username</label>
+      <input type="text" name="username" />
+    </div>
 
-  <div class="field">
-    <label>Password</label>
-    <input type="password" name="password" />
-  </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" name="password" />
+    </div>
 
-  <div class="field submit">
-    <button type="submit">Signup</button>
-  </div>
-</form>
+    <div class="field submit">
+      <button type="submit">Signup</button>
+    </div>
+    <form>
+</div>
 
-{{#if messages.length}}
-<ul class="validation">
-  {{#each messages}}<li>{{this}}</li>{{/each}}
-</ul>
-{{/if}}
+
+{{> flash}}

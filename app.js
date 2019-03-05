@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
+const hbs = require('hbs');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const session = require('express-session');
@@ -35,6 +35,7 @@ mongoose.connect('mongodb://localhost/tortillApp', {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+hbs.registerPartials(path.join(__dirname, '/views/partials'));
 
 app.use(logger('dev'));
 app.use(express.json());

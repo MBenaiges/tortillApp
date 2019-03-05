@@ -6,7 +6,7 @@ const router = express.Router();
 const User = require('../models/User');
 
 const { requireAnon, requireUser, requireFields } = require('../middlewares/auth.js');
-
+// para encriptar password
 const saltRounds = 10;
 
 router.get('/signup', requireAnon, (req, res, next) => {
@@ -47,7 +47,10 @@ router.post('/signup', requireAnon, requireFields, async (req, res, next) => {
 });
 
 router.get('/login', requireAnon, (req, res, next) => {
-  res.render('auth/login');
+  const data = {
+    messages: req.flash('validation')
+  };
+  res.render('auth/login', data);
 });
 
 router.post('/login', requireAnon, requireFields, async (req, res, next) => {
@@ -58,6 +61,7 @@ router.post('/login', requireAnon, requireFields, async (req, res, next) => {
     const user = await User.findOne({ username });
 
     if (!user) {
+      req.flash('validation', 'Username or password incorrect');
       res.redirect('auth/login');
       return;
     }
@@ -68,6 +72,7 @@ router.post('/login', requireAnon, requireFields, async (req, res, next) => {
       // redirigir
       res.redirect('/');
     } else {
+      req.flash('validation', 'Username or password incorrect');
       res.redirect('/auth/login');
     }
   } catch (error) {

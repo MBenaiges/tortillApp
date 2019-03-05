@@ -1,12 +1,30 @@
 body {
-  padding: 50px;
+  /*padding: 50px;*/
+  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
-
+nav{
+  background: rgb(174, 174, 174);
+  padding: 20px;
+}
+nav a{
+  text-decoration: none;
+  color: black;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-right: solid 1px black;
+}
+.menu-option{
+  display: flex;
+}
+.container{
+  margin-left: 10%;
+  margin-top: 5%;
+}
 form.is-processing {
 	opacity: 0.5;
 }
