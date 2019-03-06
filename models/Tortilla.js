@@ -19,8 +19,17 @@ const tortillaSchema = new Schema({
   creator: {
     type: ObjectId,
     ref: 'User'
+  },
+  location: {
+    type: {
+      type: String,
+      default: 'Point'
+    },
+    coordinates: [Number]
   }
 });
+
+tortillaSchema.index({ location: '2dsphere' });
 
 const Tortilla = mongoose.model('Tortilla', tortillaSchema);
 

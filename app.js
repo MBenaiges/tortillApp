@@ -5,6 +5,7 @@ const logger = require('morgan');
 const hbs = require('hbs');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
+const apiRouter = require('./routes/api');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
@@ -50,6 +51,7 @@ app.use((req, res, next) => {
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/api', apiRouter);
 
 // -- 404 and error handler
 

@@ -8,4 +8,23 @@
     </li>
     {{/each}}
   </ul>
+
+  <form method="GET" id="search-tortilla" action="/api/tortillas">
+  <div class="field">
+      <label>Find by username</label>
+      <input type="text" name="username" />
+    </div>
+
+    <div class="field submit">
+      <button type="submit">Search</button>
+    </div>
+  </form>
+
+  <div id="results">
+  </div>
 </div>
+
+<script src="/javascripts/index.js"></script>
+
+
+    
